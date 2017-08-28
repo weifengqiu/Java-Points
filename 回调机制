@@ -1,0 +1,40 @@
+原理：首先创建一个回调对象，然后再创建一个控制器对象，将回调对象需要被调用的方法告诉控制器对象，控制器对象负责检查某个场景是否出现或某个条件是否满足，
+      当满足时，自动调用回调对象的方法
+      
+ 详细的代码如下：
+
+1、创建一个回调接口
+public interface CallBack{
+    public void doEvent();
+}
+
+2、创建回调接口的实现类，此例中，员工干完活后还要干什么事情是老板说了算的。
+public class Boss implements CallBack{
+    //重写方法
+    public void doEvent(){
+        System.out.println("打电话给老板，告知已经完成工作了");
+    }
+}
+
+3、创建控制类，也就是本例中的员工对象，他要持有老板的地址(即回调接口)
+public class Employee{
+    CallBack callBack;
+    //这里获取老板的地址（即要回调的对象）
+    public setCallBack(CallBack callBack){
+        this.callBack=callBack;
+    }
+    public void doWork(){
+        System.out.println("玩命干活中....");
+        callBack.doEvent();
+    }
+}
+
+4、测试类
+public class TestMain{
+    public static void main(String[] args){
+        //创建控制器对象，将提供给他的回调对象传入
+        Employee employee=new Employee(new Boss());
+        //启动控制器对象运行
+        employee.doWork();
+    }
+}
