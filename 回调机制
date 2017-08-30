@@ -39,3 +39,13 @@ public class TestMain{
         employee.doWork();
     }
 }
+
+5、也可在某个类中直接调用，即不用有借口的实现类，而是有借口的实现方法
+public class C{
+     Employee employee=new Employee();
+     employee.setCallBack(new CallBack(){
+            @Override
+            public void doEvent(){
+            }
+            });
+}
